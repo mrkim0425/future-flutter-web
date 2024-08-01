@@ -20,7 +20,7 @@ class ComingSoonText extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Future Flutter',
+            'Future<Flutter>',
             textAlign: TextAlign.center,
             style: TextStyle(
               height: 1.1,
