@@ -48,6 +48,7 @@ class _CocScreenState extends State<CocScreen> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text('Code of Conduct'),
         leading: const ScaffoldDrawerButton(),

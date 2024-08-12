@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:future_flutter_web_2024/style/color.dart';
 
 class BackgroundEffect extends StatefulWidget {
   const BackgroundEffect({super.key});
@@ -9,10 +10,12 @@ class BackgroundEffect extends StatefulWidget {
 
 class _BackgroundEffectState extends State<BackgroundEffect>
     with SingleTickerProviderStateMixin {
-
   late AnimationController bgController;
   late ColorTween topColorTween;
   late Animation<Color?> topColor;
+
+  final beginColor = primaryColor.shade600;
+  final endColor = primaryColor.shade900;
 
   @override
   void initState() {
@@ -20,38 +23,33 @@ class _BackgroundEffectState extends State<BackgroundEffect>
 
     bgController = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 6),
     );
 
-    topColorTween = ColorTween(
-      begin: Colors.black,
-      end: Colors.indigo.shade900.withOpacity(0.1),
-      // end: Colors.white,
-    );
-
+    topColorTween = ColorTween(begin: beginColor, end: endColor);
     topColor = topColorTween.animate(bgController);
   }
 
   @override
   Widget build(BuildContext context) {
     bgController.repeat(reverse: true);
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
 
     return AnimatedBuilder(
       animation: bgController,
       builder: (context, child) {
-        List<Color> colors = width > height ? [
-          topColor.value ?? Colors.black,
-          Colors.black,
-        ] : [
-          Colors.black,
-          topColor.value ?? Colors.black,
-          Colors.black,
-        ];
+        List<Color> colors = width > height
+            ? [
+                topColor.value ?? Colors.black,
+                endColor,
+              ]
+            : [
+                endColor,
+                topColor.value ?? Colors.black,
+                endColor,
+              ];
 
         List<double> stops = width > height ? [0.0, 0.8] : [0.35, 0.45, 0.6];
 
