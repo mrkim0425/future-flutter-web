@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:future_flutter_web_2024/coc/coc_screen.dart';
 import 'package:future_flutter_web_2024/home/home_screen.dart';
+import 'package:future_flutter_web_2024/sessions/sessions_screen.dart';
 import 'package:future_flutter_web_2024/style/color.dart';
 import 'package:future_flutter_web_2024/style/typography.dart';
 import 'package:go_router/go_router.dart';
@@ -23,7 +24,11 @@ class FutureFlutter2024WebApp extends StatelessWidget {
           headlineMedium: heading2,
           headlineSmall: heading3,
           titleLarge: heading4,
-        )
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: primaryColor.shade100,
+          elevation: 10
+        ),
       ),
       themeMode: ThemeMode.dark,
     );
@@ -40,5 +45,10 @@ GoRouter _router = GoRouter(routes: [
     path: '/coc',
     name: 'coc',
     builder: (context, state) => const CocScreen(),
+  ),
+  GoRoute(
+    path: '/sessions',
+    name: 'sessions',
+    builder: (context, state) => const SessionsScreen(),
   )
 ]);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:future_flutter_web_2024/home/drawer_button.dart';
+import 'package:future_flutter_web_2024/common/ff_app_bar.dart';
+import 'package:future_flutter_web_2024/home/background_effect.dart';
 import 'package:future_flutter_web_2024/home/home_drawer.dart';
 
 part 'kor_coc_content.dart';
@@ -49,20 +50,21 @@ class _CocScreenState extends State<CocScreen> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Code of Conduct'),
-        leading: const ScaffoldDrawerButton(),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              _languageSelector(),
-              contents,
-            ],
-          ),
-        ),
+      appBar: ffAppBar(title: 'Code of Conduct'),
+      body: Stack(
+        children: [
+          const BackgroundEffect(),
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  _languageSelector(),
+                  contents,
+                ],
+              ),
+            ),
+          )
+        ],
       ),
       drawer: const HomeDrawer(),
     );
@@ -111,10 +113,14 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.fromLTRB(0, 32, 16, 16),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 24, color: Colors.white),
+        style: const TextStyle(
+          fontSize: 28,
+          color: Colors.white,
+          fontWeight: FontWeight.w800,
+        ),
       ),
     );
   }
@@ -128,10 +134,14 @@ class _SubTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.fromLTRB(0, 20, 10, 10),
       child: Text(
         text,
-        style: const TextStyle(fontSize: 20, color: Colors.white),
+        style: const TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }
@@ -145,7 +155,7 @@ class _Content extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
       child: Text(
         text,
         style: const TextStyle(fontSize: 16, color: Colors.white),

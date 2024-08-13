@@ -17,6 +17,13 @@ class HomeDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            title: const Text('Sessions'),
+            onTap: () {
+              context.pop();
+              context.go('/sessions');
+            },
+          ),
+          ListTile(
             title: const Text('Code of Conduct'),
             onTap: () {
               context.pop();
