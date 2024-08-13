@@ -87,10 +87,39 @@ class SessionCard extends StatelessWidget {
   }
 }
 
-class SpeakerInfo extends StatelessWidget {
+class SpeakerInfo extends StatefulWidget {
   final SpeakerData data;
 
   const SpeakerInfo({super.key, required this.data});
+
+  @override
+  State<SpeakerInfo> createState() => _SpeakerInfoState();
+}
+
+class _SpeakerInfoState extends State<SpeakerInfo>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController animationController;
+  late final Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
+    );
+    final curveAnimation = CurvedAnimation(
+        parent: animationController, curve: Curves.elasticInOut);
+    animation = Tween<double>(begin: 0, end: 3.14 * 2).animate(curveAnimation);
+    animationController.repeat();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +136,19 @@ class SpeakerInfo extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(38),
-              child: data.imageUrl == null
-                  ? SvgPicture.asset('assets/svg/logo.svg')
-                  : Image.network(data.imageUrl!, fit: BoxFit.cover),
+              child: widget.data.imageUrl == null
+                  ? AnimatedBuilder(
+                      animation: animation,
+                      child: SvgPicture.asset('assets/svg/logo.svg'),
+                      builder: (context, child) => Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..setEntry(3, 2, 0.001)
+                          ..rotateY(animation.value),
+                        child: child,
+                      ),
+                    )
+                  : Image.network(widget.data.imageUrl!, fit: BoxFit.cover),
             ),
           ),
         ),
@@ -119,7 +158,7 @@ class SpeakerInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data.name,
+                widget.data.name,
                 style: const TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 20,
@@ -128,7 +167,7 @@ class SpeakerInfo extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                data.bio,
+                widget.data.bio,
                 style: const TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 16,

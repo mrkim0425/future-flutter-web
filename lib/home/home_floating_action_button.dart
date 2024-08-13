@@ -34,6 +34,12 @@ class _HomeFloatingActionButtonState extends State<HomeFloatingActionButton>
   }
 
   @override
+  void dispose() {
+    bgColorController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bgColorController.repeat(reverse: true);
 
@@ -50,7 +56,8 @@ class _HomeFloatingActionButtonState extends State<HomeFloatingActionButton>
             SizedBox(width: 12),
             Text(
               '티켓 오픈시 알림받기',
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
             ),
           ],
         ),

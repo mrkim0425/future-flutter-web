@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:future_flutter_web_2024/coc/coc_screen.dart';
 import 'package:future_flutter_web_2024/home/home_screen.dart';
 import 'package:future_flutter_web_2024/sessions/sessions_screen.dart';
+import 'package:future_flutter_web_2024/splash/splash_screen.dart';
 import 'package:future_flutter_web_2024/style/color.dart';
 import 'package:future_flutter_web_2024/style/typography.dart';
 import 'package:go_router/go_router.dart';
@@ -25,30 +26,36 @@ class FutureFlutter2024WebApp extends StatelessWidget {
           headlineSmall: heading3,
           titleLarge: heading4,
         ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: primaryColor.shade100,
-          elevation: 10
-        ),
+        appBarTheme:
+            AppBarTheme(backgroundColor: primaryColor.shade100, elevation: 10),
       ),
       themeMode: ThemeMode.dark,
     );
   }
 }
 
-GoRouter _router = GoRouter(routes: [
-  GoRoute(
-    path: '/',
-    name: 'home',
-    builder: (context, state) => const HomeScreen(),
-  ),
-  GoRoute(
-    path: '/coc',
-    name: 'coc',
-    builder: (context, state) => const CocScreen(),
-  ),
-  GoRoute(
-    path: '/sessions',
-    name: 'sessions',
-    builder: (context, state) => const SessionsScreen(),
-  )
-]);
+GoRouter _router = GoRouter(
+  initialLocation: '/splash',
+  routes: [
+    GoRoute(
+      path: '/splash',
+      name: 'splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/',
+      name: 'home',
+      builder: (context, state) => const HomeScreen(),
+    ),
+    GoRoute(
+      path: '/coc',
+      name: 'coc',
+      builder: (context, state) => const CocScreen(),
+    ),
+    GoRoute(
+      path: '/sessions',
+      name: 'sessions',
+      builder: (context, state) => const SessionsScreen(),
+    )
+  ],
+);
